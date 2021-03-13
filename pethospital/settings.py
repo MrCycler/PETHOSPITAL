@@ -37,6 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # aplicaciones de terceros
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    # * Django rest auth basic install (https://django-rest-auth.readthedocs.io/en/latest/installation.html)
+    'rest_auth',
+    # aplicaciones propias
+    'plataforma',
+    'citas'
 ]
 
 MIDDLEWARE = [
@@ -77,6 +86,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'USER': 'docpet',
+        'PASSWORD': 'firulais123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -103,9 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-PE'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
@@ -114,7 +127,40 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+# * Static files (CSS, JavaScript, Images)
+# * https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+# * Sobre el guardado de archivos en el servidor (https://stackoverflow.com/questions/5517950/django-media-url-and-media-root)
+# * Working with static files (https://docs.djangoproject.com/en/3.1/howto/static-files/)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'data'
+
+# * To use JWT whit REST AUTH (https://django-rest-auth.readthedocs.io/en/latest/installation.html#jwt-support-optional)
+# * For authentication with JWT
+REST_SESSION_LOGIN = False
+REST_USE_JWT = True
+JWT_AUTH = {
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': False,
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer'
+}
+OLD_PASSWORD_FIELD_ENABLED = False
+
+# * Django rest framework
+# * Django rest framework Token Auth (https://www.django-rest-framework.org/api-guide/authentication/)
+# * Django JWT (https://jpadilla.github.io/django-rest-framework-jwt/)
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+}
