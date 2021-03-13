@@ -1,4 +1,4 @@
-# OPERCUBE BACKEND - DJANGO REST FRAMEWORK BOILERPLATE
+# DJANGO REST FRAMEWORK BOILERPLATE
 
 ## 1. AUTOR:
 - Juan Manuel Mendoza Jacinto (https://github.com/fararay)
