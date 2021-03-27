@@ -23,6 +23,8 @@ urlpatterns = [
     #* API (DJANGO REST AUTH)
     # Se agregan enpoints de rest-auth (https://django-rest-auth.readthedocs.io/en/latest/installation.html)
     path('api/v1/rest-auth/', include('rest_auth.urls')),
+    # URLS plataforma
+    path('api/v1/',include('plataforma.urls')),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
